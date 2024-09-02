@@ -1,7 +1,12 @@
+
+
 {
-  "valorSolicitado": 40000.00,
-  "prazoParaPagamento": 13,
-  "aprovado": false,
-  "userId": 3
+"nome": "Nome",
+"sobrenome": "Sobrenome",
+"cpf": "",
+"telefone": "",
+"renda": 9999.99,
+"valorSolicitado": 10000.00,
+"prazoParaPagamento": 10
 }
 

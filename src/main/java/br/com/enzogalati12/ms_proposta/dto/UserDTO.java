@@ -39,7 +39,7 @@ public class UserDTO {
     @NotNull(message = "Campo obrigatório")
     private BigDecimal renda;
 
-    private List<PropostaDTO> propostas = new ArrayList<>();
+    //private List<PropostaDTO> propostas = new ArrayList<>();
 
     // Construtor que converte User em UserDTO
     public UserDTO(User entity) {

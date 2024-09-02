@@ -2,6 +2,7 @@ package br.com.enzogalati12.ms_proposta.service;
 
 
 import br.com.enzogalati12.ms_proposta.dto.PropostaDTO;
+import br.com.enzogalati12.ms_proposta.dto.PropostaWithUserDTO;
 import br.com.enzogalati12.ms_proposta.dto.UserDTO;
 import br.com.enzogalati12.ms_proposta.model.Proposta;
 import br.com.enzogalati12.ms_proposta.model.User;
@@ -50,31 +51,30 @@ public class PropostaService {
         }
     }
 
-
+    //insert
     @Transactional
-    public PropostaDTO insert(PropostaDTO propostaDTO, UserDTO userDTO) {
-        // Busque o usuário pelo ID ou lance uma exceção se não encontrado
-        User user = userRepository.findById(userDTO.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-
+    public PropostaWithUserDTO insert(PropostaWithUserDTO dto) {
+        User user = new User();
         Proposta proposta = new Proposta();
-        copyDtoToEntity(propostaDTO, proposta);
-
-        // Associe o usuário à proposta
+        copyDtoToEntity(dto, proposta, user);
+        user = userRepository.save(user);
         proposta.setUser(user);
-
-        // Salve a proposta
         proposta = repository.save(proposta);
-
-        return new PropostaDTO(proposta);
+        return new PropostaWithUserDTO(proposta, user);
     }
 
-    private void copyDtoToEntity(PropostaDTO dto, Proposta entity) {
 
-        entity.setValorSolicitado(dto.getValorSolicitado());
-        entity.setPrazoParaPagamento(dto.getPrazoParaPagamento());
-        entity.setAprovado(dto.getAprovado());
+
+
+    private void copyDtoToEntity(PropostaWithUserDTO dto, Proposta proposta, User user) {
+        proposta.setValorSolicitado(dto.getValorSolicitado());
+        proposta.setPrazoParaPagamento(dto.getPrazoParaPagamento());
+        proposta.setAprovado(dto.isAprovado());
+        user.setNome(dto.getNome());
+        user.setSobrenome(dto.getSobrenome());
+        user.setCpf(dto.getCpf());
+        user.setTelefone(dto.getTelefone());
+        user.setRenda(dto.getRenda());
     }
-
 
 }

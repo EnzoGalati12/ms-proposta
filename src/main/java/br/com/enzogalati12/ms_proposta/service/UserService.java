@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.ExecutionException;
+
 @Service
 public class UserService {
 
@@ -55,8 +57,23 @@ public class UserService {
 
     }
 
+    //update
+    @Transactional
+    public UserDTO update(Long id, UserDTO dto) {
+        try {
+            User user = repository.getReferenceById(id);
+            copyDtoToEntity(dto, user);
+            user.setId(id);
+            user = repository.save(user);
+            return new UserDTO(user);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Recurso não encontrado");
+        }
+    }
+
 
     private void copyDtoToEntity(UserDTO dto, User entity) {
+        entity.setId(dto.getId());
         entity.setNome(dto.getNome());
         entity.setSobrenome(dto.getSobrenome());
         entity.setCpf(dto.getCpf());

@@ -53,7 +53,7 @@ Este projeto é um microsserviço desenvolvido para a ACR Financeira, que atua n
     - **GET** `/propostas`: Retorna todas as propostas cadastradas.
     - **GET** `/propostas/{id}`: Retorna uma proposta específica pelo ID.
     - **POST** `/propostas`: Cadastra uma nova proposta de crédito.
-    - **DELETE** `/propostas/{id}`: Remove um usuário do sistema.
+    - **DELETE** `/propostas/{id}`: Remove uma proposta do sistema.
 
 ## Seed do Banco de Dados
 
